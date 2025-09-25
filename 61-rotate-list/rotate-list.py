@@ -8,25 +8,32 @@ class Solution:
         # If list is empty
         if not head:
             return head
-        
         length = 1
-        dummy = head
-
-        while dummy.next:
-            dummy = dummy.next
+        tail = head
+        while tail.next:
+            tail = tail.next
             length += 1
         
-        position = k % length
-        if position == 0:
+        # If k = length of list, list remains unchanged
+        # Case 1
+        # If list = [1, 2, 3], k = 4
+        # list is rotated length + 1 time
+        # Number of places moved = k % length
+        # formula to find break (length - k - 1)
+        # -1 since we are starting from head
+
+        k = k % length
+        if k == 0:
             return head
-        
-        current = head
-
-        for _ in range(length - position - 1):
-            current = current.next
-        
-        new_head = current.next
-        current.next = None
-        dummy.next = head
-
+        break_at = length - k - 1
+        curr = head
+        for i in range(break_at):
+            curr = curr.next
+        new_head = curr.next
+        curr.next = None
+        tail.next = head
         return new_head
+        
+
+
+        
