@@ -1,9 +1,15 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        dp = [0] * (n+1)
-        dp[0] = 1
-        dp[1] = 1
-        for i in range(2, n+1):
-            dp[i] = dp[i-1] + dp[i-2]
-        return dp[n]
+        # Memoization + DP 
+        # O(n)
+        memo = {}
+        def dfs(steps):
+            if steps in memo:
+                return memo[steps]
+            if steps <= 1:
+                return 1
+            memo[steps] = dfs(steps - 1) + dfs(steps - 2)
+            return memo[steps]
+        return dfs(n)
+
         
